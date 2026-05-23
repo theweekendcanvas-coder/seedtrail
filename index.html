@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed Trail — Watch Your Savings Grow</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --amber:   #B45309;
+      --gold:    #F59E0B;
+      --terra:   #C2410C;
+      --cream:   #FFFBF0;
+      --cream2:  #FEF3C7;
+      --dark:    #1C1917;
+      --mid:     #78716C;
+      --border:  #E7E0D8;
+      --card:    #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ─────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,251,240,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon {
+      width: 36px; height: 36px; background: var(--amber); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .nav-logo-text { font-size: 15px; font-weight: 800; color: var(--dark); }
+    .nav-logo-sub  { font-size: 10px; color: var(--mid); font-weight: 400; display: block; margin-top: -2px; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 13px; color: var(--mid); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--amber); }
+    .nav-ctas { display: flex; gap: 10px; align-items: center; }
+    .btn-outline {
+      padding: 8px 18px; border-radius: 99px; border: 1.5px solid var(--amber);
+      color: var(--amber); font-size: 13px; font-weight: 600; cursor: pointer;
+      background: transparent; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--amber); color: #fff; }
+    .btn-solid {
+      padding: 9px 20px; border-radius: 99px; border: none;
+      background: var(--terra); color: #fff; font-size: 13px; font-weight: 700;
+      cursor: pointer; text-decoration: none; transition: opacity 0.2s;
+    }
+    .btn-solid:hover { opacity: 0.88; }
+
+    /* ── HERO ─────────────────────────────── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 64px);
+      max-width: 1200px; margin: 0 auto;
+      padding: 80px 40px;
+      align-items: center; gap: 60px;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1.5px solid var(--amber); border-radius: 99px;
+      padding: 5px 14px; font-size: 12px; font-weight: 600; color: var(--amber);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 900; line-height: 1.1;
+      color: var(--dark); margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: normal; color: var(--amber); }
+    .hero p {
+      font-size: 17px; color: var(--mid); line-height: 1.7;
+      max-width: 500px; margin-bottom: 32px;
+    }
+    .hero p strong { color: var(--dark); }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-hero {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 14px; font-size: 15px; font-weight: 700;
+      cursor: pointer; text-decoration: none; border: none; transition: all 0.2s;
+    }
+    .btn-hero-primary { background: var(--terra); color: #fff; }
+    .btn-hero-primary:hover { opacity: 0.88; }
+    .btn-hero-secondary { background: var(--card); color: var(--dark); border: 1.5px solid var(--border); }
+    .btn-hero-secondary:hover { border-color: var(--amber); color: var(--amber); }
+
+    .hero-image {
+      border-radius: 28px; overflow: hidden;
+      height: 520px; position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+    }
+    .hero-image img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-image-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #C2410C 0%, #B45309 40%, #F59E0B 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px;
+    }
+    .hero-image-placeholder .plant-emoji { font-size: 80px; }
+    .hero-image-placeholder p { color: rgba(255,255,255,0.8); font-size: 13px; text-align: center; max-width: 200px; }
+
+    /* ── FEATURE STRIP ───────────────────── */
+    .features {
+      background: var(--dark); padding: 40px;
+    }
+    .features-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+    }
+    .feature-item {}
+    .feature-label { font-size: 24px; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+    .feature-title { font-size: 13px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+    .feature-desc  { font-size: 13px; color: #A8A29E; line-height: 1.5; }
+
+    /* ── SECTION SHARED ──────────────────── */
+    section { padding: 100px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-tag {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--amber); margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 900; margin-bottom: 16px; }
+    .section-sub { font-size: 16px; color: var(--mid); max-width: 580px; line-height: 1.7; }
+
+    /* ── PHILOSOPHY ──────────────────────── */
+    .philosophy { background: var(--cream); }
+    .philosophy .section-sub { margin: 0 auto 48px; text-align: center; max-width: 580px; }
+    .philosophy .section-title { text-align: center; }
+    .philosophy .section-tag  { text-align: center; display: block; }
+
+    .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 40px; }
+    .tab-btn {
+      padding: 12px 28px; font-size: 14px; font-weight: 600; color: var(--mid);
+      background: none; border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; margin-bottom: -2px; transition: all 0.2s;
+    }
+    .tab-btn.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+
+    .phil-card {
+      background: var(--cream2); border-radius: 20px; padding: 28px;
+      border: 1.5px solid var(--border);
+    }
+    .phil-num { font-size: 11px; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .phil-card h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+    .phil-card p { font-size: 14px; color: var(--mid); line-height: 1.7; margin-bottom: 14px; }
+    .phil-quote {
+      background: var(--card); border-radius: 12px; padding: 16px;
+      font-size: 13px; color: var(--mid); font-style: italic; line-height: 1.6;
+      border-left: 3px solid var(--amber);
+    }
+    .phil-right {
+      background: var(--card); border-radius: 20px; padding: 28px;
+      border: 1.5px solid var(--border);
+    }
+    .phil-right p { font-size: 14px; color: var(--mid); line-height: 1.7; margin-bottom: 20px; }
+    .stage-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .chip {
+      padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 600;
+      background: var(--cream2); color: var(--amber); border: 1px solid var(--border);
+    }
+    .color-swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+    .swatch {
+      width: 52px; text-align: center;
+    }
+    .swatch-color { width: 52px; height: 52px; border-radius: 12px; margin-bottom: 6px; }
+    .swatch-label { font-size: 9px; color: var(--mid); font-weight: 600; }
+
+    /* ── SIMULATOR ───────────────────────── */
+    .simulator { background: #FEF9EE; }
+    .sim-grid { display: grid; grid-template-columns: 280px 1fr; gap: 24px; margin-top: 48px; align-items: start; }
+
+    .sim-guide {
+      background: var(--cream2); border-radius: 16px; padding: 20px;
+      border: 1.5px solid var(--border);
+    }
+    .sim-guide-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--amber); margin-bottom: 12px; }
+    .sim-guide p { font-size: 13px; color: var(--mid); line-height: 1.6; margin-bottom: 12px; }
+    .sim-steps { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .sim-steps li { font-size: 13px; color: var(--dark); display: flex; gap: 10px; align-items: flex-start; }
+    .sim-steps li span:first-child {
+      width: 20px; height: 20px; background: var(--amber); color: #fff; border-radius: 50%;
+      font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    .sim-goals-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--mid);
+      margin-bottom: 10px; margin-top: 16px;
+    }
+    .sim-goals { display: flex; flex-direction: column; gap: 8px; }
+    .sim-goal-item {
+      background: var(--card); border-radius: 12px; padding: 12px 14px;
+      border: 1.5px solid var(--border); cursor: pointer; transition: all 0.2s;
+    }
+    .sim-goal-item:hover { border-color: var(--amber); }
+    .sim-goal-item.selected { border-color: var(--amber); background: var(--cream2); }
+    .sim-goal-cat { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--mid); margin-bottom: 2px; }
+    .sim-goal-name { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .sim-goal-bar-wrap { background: var(--border); border-radius: 99px; height: 4px; overflow: hidden; }
+    .sim-goal-bar { height: 100%; border-radius: 99px; background: var(--amber); transition: width 0.6s ease; }
+    .sim-goal-amounts { display: flex; justify-content: space-between; margin-top: 4px; font-size: 10px; color: var(--mid); }
+    .sim-goal-amounts .saved { font-weight: 700; color: var(--amber); }
+
+    .sim-locked {
+      display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+      background: #F5F0E8; border-radius: 12px; border: 1.5px dashed var(--border);
+      font-size: 12px; color: var(--mid); margin-top: 8px;
+    }
+
+    /* Phone frame */
+    .sim-phone-wrap { display: flex; justify-content: center; }
+    .sim-phone {
+      width: 360px;
+      background: var(--cream);
+      border-radius: 40px;
+      box-shadow: 0 0 0 8px #2C2416, 0 0 0 10px #3D3020, 0 24px 48px rgba(0,0,0,0.25);
+      overflow: hidden;
+      padding-bottom: 24px;
+    }
+    .sim-status { background: var(--cream); padding: 14px 24px 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; }
+    .sim-app-header { padding: 8px 24px 16px; border-bottom: 1px solid var(--border); }
+    .sim-app-header .inside-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--mid); }
+    .sim-app-header .goal-name-display { font-size: 17px; font-weight: 800; color: var(--dark); }
+
+    .sim-content { padding: 16px 20px; }
+
+    .sim-plant-card {
+      background: var(--card); border-radius: 20px; padding: 20px;
+      border: 1.5px solid var(--border); text-align: center; margin-bottom: 14px;
+    }
+    .sim-plant-display { font-size: 72px; line-height: 1; margin-bottom: 8px; transition: all 0.4s; }
+    .sim-plant-stage {
+      display: inline-block; background: var(--cream2); color: var(--amber);
+      border-radius: 99px; padding: 4px 14px; font-size: 12px; font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .sim-pct { font-size: 32px; font-weight: 900; color: var(--terra); margin-bottom: 4px; }
+    .sim-pct-label { font-size: 11px; color: var(--mid); margin-bottom: 12px; }
+    .sim-prog-bar-wrap { background: #F5F0E8; border-radius: 99px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+    .sim-prog-bar { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--amber), var(--gold)); transition: width 0.6s ease; }
+    .sim-goal-label { font-size: 11px; color: var(--mid); }
+    .sim-goal-label span { font-weight: 700; color: var(--amber); }
+
+    .sim-log-section { margin-bottom: 14px; }
+    .sim-month-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--amber); color: #fff; border-radius: 99px;
+      padding: 4px 12px; font-size: 11px; font-weight: 700; margin-bottom: 10px;
+    }
+    .sim-cycle-title { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+    .sim-cycle-sub { font-size: 12px; color: var(--mid); margin-bottom: 12px; }
+
+    .sim-info-card {
+      background: #FEF9EE; border-radius: 12px; padding: 12px;
+      font-size: 12px; color: var(--mid); line-height: 1.6;
+      border-left: 3px solid var(--gold); margin-bottom: 12px;
+    }
+    .sim-input-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .sim-input-label { font-size: 11px; font-weight: 700; color: var(--mid); text-transform: uppercase; letter-spacing: 0.5px; }
+    .sim-input {
+      padding: 10px 14px; border-radius: 10px; border: 1.5px solid var(--border);
+      font-size: 15px; font-weight: 700; color: var(--dark); background: var(--card);
+      font-family: inherit; width: 100%;
+    }
+    .sim-input:focus { outline: none; border-color: var(--amber); }
+    .sim-log-btn {
+      width: 100%; padding: 13px; border-radius: 12px; border: none;
+      background: var(--amber); color: #fff; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: opacity 0.2s; font-family: inherit;
+    }
+    .sim-log-btn:hover { opacity: 0.88; }
+
+    /* ── PLANNER ─────────────────────────── */
+    .planner { background: var(--cream); }
+    .planner-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+      margin-top: 48px;
+    }
+    .planner-form {
+      background: var(--card); border-radius: 24px; padding: 32px;
+      border: 1.5px solid var(--border);
+    }
+    .planner-form h3 { font-size: 16px; font-weight: 700; margin-bottom: 24px; }
+    .planner-field { margin-bottom: 20px; }
+    .planner-field label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--mid); margin-bottom: 8px; }
+    .planner-field input[type=text], .planner-field input[type=number] {
+      width: 100%; padding: 12px 16px; border-radius: 12px; border: 1.5px solid var(--border);
+      font-size: 16px; font-weight: 700; color: var(--dark); background: var(--cream);
+      font-family: inherit;
+    }
+    .planner-field input:focus { outline: none; border-color: var(--amber); }
+    .planner-field input[type=range] { width: 100%; accent-color: var(--amber); margin-top: 4px; }
+    .range-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--mid); margin-top: 4px; }
+    .range-val { font-size: 13px; font-weight: 700; color: var(--amber); }
+    .planner-hint { font-size: 12px; color: var(--mid); margin-top: 6px; font-style: italic; }
+
+    .planner-result {
+      background: var(--cream2); border-radius: 24px; padding: 32px;
+      border: 1.5px solid var(--border);
+    }
+    .planner-result h3 { font-size: 16px; font-weight: 700; margin-bottom: 24px; }
+    .result-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .result-row:last-of-type { border-bottom: none; }
+    .result-label { font-size: 13px; color: var(--mid); }
+    .result-value { font-size: 15px; font-weight: 700; color: var(--amber); }
+    .result-highlight {
+      margin-top: 20px; background: #D1FAE5; border-radius: 14px; padding: 16px;
+      border-left: 4px solid #10B981;
+    }
+    .result-highlight.warning { background: #FEE2E2; border-color: #DC2626; }
+    .result-highlight-title { font-size: 13px; font-weight: 700; color: #065F46; margin-bottom: 4px; }
+    .result-highlight.warning .result-highlight-title { color: #991B1B; }
+    .result-highlight p { font-size: 12px; color: #047857; line-height: 1.5; }
+    .result-highlight.warning p { color: #B91C1C; }
+
+    /* ── WAITLIST CTA ────────────────────── */
+    .waitlist-cta {
+      background: var(--dark); text-align: center; padding: 100px 40px;
+    }
+    .waitlist-icon {
+      width: 56px; height: 56px; background: rgba(255,255,255,0.1); border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; margin: 0 auto 24px;
+    }
+    .waitlist-cta h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; color: #fff; margin-bottom: 16px; }
+    .waitlist-cta p { font-size: 16px; color: #A8A29E; max-width: 500px; margin: 0 auto 40px; line-height: 1.7; }
+    .waitlist-form { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto; }
+    .waitlist-input {
+      flex: 1; min-width: 220px; padding: 14px 20px; border-radius: 12px;
+      border: 1.5px solid #3D3830; background: #2C2416; color: #fff;
+      font-size: 15px; font-family: inherit;
+    }
+    .waitlist-input::placeholder { color: #57534E; }
+    .waitlist-input:focus { outline: none; border-color: var(--amber); }
+    .waitlist-submit {
+      padding: 14px 28px; border-radius: 12px; border: none;
+      background: var(--terra); color: #fff; font-size: 15px; font-weight: 700;
+      cursor: pointer; font-family: inherit; transition: opacity 0.2s; white-space: nowrap;
+    }
+    .waitlist-submit:hover { opacity: 0.88; }
+    .waitlist-note { font-size: 12px; color: #57534E; margin-top: 16px; }
+
+    /* ── FOOTER ──────────────────────────── */
+    footer {
+      background: var(--dark); border-top: 1px solid #2C2416;
+      padding: 24px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 10px; }
+    .footer-logo-icon { width: 28px; height: 28px; background: var(--amber); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .footer-logo-name { font-size: 13px; font-weight: 700; color: #fff; }
+    .footer-mid { font-size: 12px; color: #57534E; }
+    .footer-right { font-size: 12px; color: #57534E; }
+
+    /* ── RESPONSIVE ──────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 40px 20px; gap: 40px; }
+      .hero-image { height: 300px; }
+      .features { padding: 40px 20px; }
+      .features-inner { grid-template-columns: 1fr; gap: 24px; }
+      section { padding: 60px 20px; }
+      .tab-panel.active { grid-template-columns: 1fr; }
+      .sim-grid { grid-template-columns: 1fr; }
+      .sim-phone { width: 100%; max-width: 360px; }
+      .planner-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">🌱</div>
+    <div>
+      <span class="nav-logo-text">Seed Trail</span>
+      <span class="nav-logo-sub">Android Savings Companion</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#philosophy">Philosophy</a>
+    <a href="#simulator">Simulator</a>
+    <a href="#planner">Kinsena Guide</a>
+  </div>
+  <div class="nav-ctas">
+    <a href="#simulator" class="btn-outline">Try Simulator</a>
+    <a href="#waitlist" class="btn-solid">Join Waitlist</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">🌿 Designed for First Jobbers in the Philippines</div>
+    <h1>Watch your savings<br><em>grow.</em></h1>
+    <p>
+      A warm, plant-based savings tracker that makes financial progress feel alive.
+      Set goals, track your kinsenas, and watch your plant companion grow with every peso saved.
+      <strong>Seed Trail makes your effort visible.</strong>
+    </p>
+    <div class="hero-ctas">
+      <a href="#waitlist" class="btn-hero btn-hero-primary">🌱 Join Waitlist →</a>
+      <a href="#simulator" class="btn-hero btn-hero-secondary">Try Simulator ⎉</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="plant.jpg" alt="Seedling in a terracotta pot">
+  </div>
+</div>
+
+<!-- ── FEATURE STRIP ── -->
+<div class="features">
+  <div class="features-inner">
+    <div class="feature-item">
+      <div class="feature-label">Zero</div>
+      <div class="feature-title">Bank Link Required</div>
+      <div class="feature-desc">All data stays on your phone. No accounts, no passwords, no backend. Private by design.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-label">Kinsenas</div>
+      <div class="feature-title">Schedules Built-In</div>
+      <div class="feature-desc">Reminders on the 15th and last day. Log your first half, add the second — your plant reacts.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-label">3 Seeds</div>
+      <div class="feature-title">Free to Garden</div>
+      <div class="feature-desc">Start free with 3 goals. Unlock unlimited goals forever for a one-time ₱199. No subscriptions.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHILOSOPHY ── -->
+<section class="philosophy" id="philosophy">
+  <div class="section-inner">
+    <div class="section-tag">THE BLUEPRINT SPEC</div>
+    <h2 class="section-title">Behind the Design of Seed Trail</h2>
+    <p class="section-sub">We designed Seed Trail with strict parameters to ensure money feels like something worth caring for, not something to be feared.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('emotional')">Emotional Mechanics</button>
+      <button class="tab-btn" onclick="showTab('palette')">Brand Palette System</button>
+      <button class="tab-btn" onclick="showTab('filipino')">The Filipino Context</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-emotional">
+      <div class="phil-card">
+        <div class="phil-num">01 / REWARD CORE</div>
+        <h3>Companion, not a banking client ledger</h3>
+        <p>Seed Trail represents personal savings as a live, growing organism. When you set a goal, you literally plant a seed. Log your update on cycle days — and watch it sprout. <strong>Seeing it grow is the reward.</strong></p>
+        <div class="phil-quote">"No complex dashboards. No bank account integration required. Just you, your goal, and a plant that stays healthy when you do."</div>
+      </div>
+      <div class="phil-right">
+        <div class="stage-chips">
+          <span class="chip">Sprout (10%)</span>
+          <span class="chip">Seedling (50%)</span>
+          <span class="chip">Flowering (100%)</span>
+        </div>
+        <p>Rather than displaying alarming numbers with strict graphs, Seed Trail reacts with beautiful stages of plant life to celebrate financial self-discipline.</p>
+        <p>Miss a month and your plant wilts. Log your update and it grows again. The feedback loop is immediate, visual, and deeply personal.</p>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-palette">
+      <div class="phil-card">
+        <div class="phil-num">02 / COLOR SYSTEM</div>
+        <h3>Warm amber — not banking blue</h3>
+        <p>Every color decision was intentional. Deep amber communicates warmth and earth, not urgency. Gold is reserved exclusively for reward moments — goal completion, milestones, celebrations.</p>
+        <div class="phil-quote">"We rejected every shade of blue and cold gray. Money should feel like something worth tending to."</div>
+      </div>
+      <div class="phil-right">
+        <p>The full Seed Trail palette:</p>
+        <div class="color-swatches">
+          <div class="swatch"><div class="swatch-color" style="background:#B45309"></div><div class="swatch-label">Deep Amber</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F59E0B"></div><div class="swatch-label">Gold</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#C2410C"></div><div class="swatch-label">Terracotta</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#FFFBF0; border:1px solid #E7E0D8"></div><div class="swatch-label">Warm Cream</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#1C1917"></div><div class="swatch-label">Near Black</div></div>
+        </div>
+        <p style="margin-top:16px; font-size:13px; color:var(--mid);">Natural greens are reserved for the plant itself — they are the organism, not the brand.</p>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-filipino">
+      <div class="phil-card">
+        <div class="phil-num">03 / FILIPINO CONTEXT</div>
+        <h3>Built around how Filipinos actually earn</h3>
+        <p>Most Filipinos earn on a <em>kinsenas</em> schedule — 15th and last day of the month. Seed Trail is the only savings app built around this cycle, not retrofitted for it.</p>
+        <div class="phil-quote">"Reminders on the 15th: log your first half. Reminders on the 30th: add the second and save your Monthly Update. No calculator needed."</div>
+      </div>
+      <div class="phil-right">
+        <p>Seed Trail also speaks your language:</p>
+        <div class="stage-chips">
+          <span class="chip">₱ Philippine Peso</span>
+          <span class="chip">GCash / Maya</span>
+          <span class="chip">Kinsenas Reminders</span>
+          <span class="chip">Android-First</span>
+        </div>
+        <p style="margin-top:16px;">Pay with GCash or Maya — no credit card needed. One-time ₱199 unlock, forever.</p>
+        <p style="margin-top:12px; font-size:13px; color:var(--mid);">85–89% of the Philippine market uses Android. Seed Trail launches Android-first, iOS later.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SIMULATOR ── -->
+<section class="simulator" id="simulator">
+  <div class="section-inner">
+    <div class="section-tag">LIVE PRODUCT EXPERIENCE</div>
+    <h2 class="section-title">Interactive App Simulator</h2>
+    <p class="section-sub">Try creating a savings goal and logging a kinsenas update. Watch the plant react as you save.</p>
+
+    <div class="sim-grid">
+      <!-- Left panel -->
+      <div>
+        <div class="sim-guide">
+          <div class="sim-guide-title">Quick Simulator Guide</div>
+          <p>Seed Trail lets you track up to 3 savings goals for free. Select a goal, log a kinsenas update, and watch your plant grow.</p>
+          <ul class="sim-steps">
+            <li><span>1</span><span>Select a savings goal below</span></li>
+            <li><span>2</span><span>Log a kinsenas saving amount</span></li>
+            <li><span>3</span><span>Watch your plant reach its next stage</span></li>
+          </ul>
+        </div>
+
+        <div class="sim-goals-label">PLANTED SEEDS (3/3)</div>
+        <div class="sim-goals">
+          <div class="sim-goal-item selected" onclick="selectGoal(0)" id="goal-item-0">
+            <div class="sim-goal-cat">EMERGENCY</div>
+            <div class="sim-goal-name">Emergency Fund Buffer</div>
+            <div class="sim-goal-bar-wrap"><div class="sim-goal-bar" id="bar-0" style="width:0%"></div></div>
+            <div class="sim-goal-amounts"><span class="saved" id="label-saved-0">₱0 saved</span><span>target: ₱30,000</span></div>
+          </div>
+          <div class="sim-goal-item" onclick="selectGoal(1)" id="goal-item-1">
+            <div class="sim-goal-cat">VACATION</div>
+            <div class="sim-goal-name">El Nido Vacation Fund</div>
+            <div class="sim-goal-bar-wrap"><div class="sim-goal-bar" id="bar-1" style="width:0%"></div></div>
+            <div class="sim-goal-amounts"><span class="saved" id="label-saved-1">₱0 saved</span><span>target: ₱20,000</span></div>
+          </div>
+          <div class="sim-goal-item" onclick="selectGoal(2)" id="goal-item-2">
+            <div class="sim-goal-cat">DEVICE</div>
+            <div class="sim-goal-name">Personal Dev Tablet</div>
+            <div class="sim-goal-bar-wrap"><div class="sim-goal-bar" id="bar-2" style="width:0%"></div></div>
+            <div class="sim-goal-amounts"><span class="saved" id="label-saved-2">₱0 saved</span><span>target: ₱15,000</span></div>
+          </div>
+          <div class="sim-locked">🔒 Simulator locked to 3 Seeds — unlock unlimited in app</div>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="sim-phone-wrap">
+        <div class="sim-phone">
+          <div class="sim-status"><span>9:41</span><span>▲▲▲ 100%</span></div>
+          <div class="sim-app-header">
+            <div class="inside-label">INSIDE SIMULATOR</div>
+            <div class="goal-name-display" id="phone-goal-name">Emergency Fund Buffer</div>
+          </div>
+          <div class="sim-content">
+            <div class="sim-plant-card">
+              <div class="sim-plant-display" id="plant-emoji">🌰</div>
+              <div class="sim-plant-stage" id="plant-stage">Seed</div>
+              <div class="sim-pct" id="plant-pct">0%</div>
+              <div class="sim-pct-label">GOAL PROGRESS</div>
+              <div class="sim-prog-bar-wrap"><div class="sim-prog-bar" id="plant-bar" style="width:0%"></div></div>
+              <div class="sim-goal-label">Goal: <span id="plant-goal-label">0% Planted</span></div>
+            </div>
+
+            <div class="sim-log-section">
+              <div class="sim-month-badge">📅 May 2026</div>
+              <div class="sim-cycle-title" id="phone-cycle-title">May 2026 Cycle</div>
+              <div class="sim-cycle-sub">Kinsenas logging for <strong id="phone-cycle-goal">Emergency Fund Buffer</strong></div>
+              <div class="sim-info-card">Filipinos earn on cycles — <strong>kinsenas</strong>. Reminders trigger on the <strong>15th</strong> and the <strong>last day</strong>. Allocate savings first so your plant sprouts.</div>
+              <div class="sim-input-row">
+                <div class="sim-input-label">Amount to add this kinsenas (₱)</div>
+                <input class="sim-input" type="number" id="sim-amount" placeholder="e.g. 2000" min="0">
+              </div>
+              <button class="sim-log-btn" onclick="logSaving()">🌱 Log Kinsenas Saving</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLANNER ── -->
+<section class="planner" id="planner">
+  <div class="section-inner">
+    <div class="section-tag">KINSENA BUDGET PLANNER TOOL</div>
+    <h2 class="section-title">Pre-calculate your half-monthly splits</h2>
+    <p class="section-sub">Calculate a healthy kinsenas target allocation based on your current salary before pushing the numbers into your Seed Trail app.</p>
+
+    <div class="planner-grid">
+      <div class="planner-form">
+        <h3>1. Declare Financial Health metrics</h3>
+        <div class="planner-field">
+          <label>Monthly Net Income (Salary in ₱)</label>
+          <input type="number" id="p-income" placeholder="18000" oninput="calcPlan()">
+        </div>
+        <div class="planner-field">
+          <label>Target Savings Rate — <span class="range-val" id="p-rate-label">15%</span></label>
+          <input type="range" id="p-rate" min="5" max="40" value="15" oninput="updateRate(); calcPlan()">
+          <div class="range-labels"><span>5%</span><span>40%</span></div>
+          <div class="planner-hint">Recommended target is 15–20% for first jobbers.</div>
+        </div>
+        <div class="planner-field">
+          <label>Essential Monthly Fixed Expenses (₱)</label>
+          <input type="number" id="p-expenses" placeholder="8000" oninput="calcPlan()">
+        </div>
+      </div>
+
+      <div class="planner-result">
+        <h3>2. Computed Kinsenas (Half-Monthly) Split</h3>
+        <div class="result-row"><span class="result-label">Income check per Kinsena</span><span class="result-value" id="r-income">₱—</span></div>
+        <div class="result-row"><span class="result-label">Auto-Savings Update (Pledge First!)</span><span class="result-value" id="r-savings">₱—</span></div>
+        <div class="result-row"><span class="result-label">Spend limit per Half Month</span><span class="result-value" id="r-spend">₱—</span></div>
+        <div class="result-row"><span class="result-label">Est. half-month bills (Rent/WiFi)</span><span class="result-value" id="r-bills">₱—</span></div>
+        <div id="r-highlight" class="result-highlight" style="display:none">
+          <div class="result-highlight-title" id="r-highlight-title"></div>
+          <p id="r-highlight-body"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WAITLIST CTA ── -->
+<section class="waitlist-cta" id="waitlist">
+  <div class="waitlist-icon">📱</div>
+  <h2>Get Seed Trail — Coming to Google Play</h2>
+  <p>Ready to make your savings visible? Join the waitlist and be the first to know when Seed Trail launches on Google Play Philippines.</p>
+  <div class="waitlist-form">
+    <input class="waitlist-input" type="text" id="waitlist-name" placeholder="Your name or number">
+    <button class="waitlist-submit" onclick="joinWaitlist()">Join Waitlist 🌱</button>
+  </div>
+  <div class="waitlist-note" id="waitlist-msg">Free to start · ₱199 one-time Pro · No subscriptions ever</div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">
+    <div class="footer-logo-icon">🌱</div>
+    <span class="footer-logo-name">Seed Trail Saving System</span>
+  </div>
+  <div class="footer-mid">Built for Filipino first jobbers and first-time savers.</div>
+  <div class="footer-right">© 2026 Seed Trail PH. Paid once, own forever.</div>
+</footer>
+
+<script>
+  // ── TABS ──
+  function showTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // ── SIMULATOR ──
+  const GOALS = [
+    { name: 'Emergency Fund Buffer', cat: 'EMERGENCY', target: 30000, saved: 0 },
+    { name: 'El Nido Vacation Fund', cat: 'VACATION',  target: 20000, saved: 0 },
+    { name: 'Personal Dev Tablet',   cat: 'DEVICE',    target: 15000, saved: 0 },
+  ];
+  const STAGES = [
+    { min: 0,   max: 0,   emoji: '🌰', label: 'Seed'      },
+    { min: 1,   max: 15,  emoji: '🌿', label: 'Sprouting' },
+    { min: 16,  max: 35,  emoji: '🌱', label: 'Seedling'  },
+    { min: 36,  max: 55,  emoji: '🍃', label: 'Growing'   },
+    { min: 56,  max: 75,  emoji: '🌿', label: 'Thriving'  },
+    { min: 76,  max: 99,  emoji: '🌸', label: 'Flowering' },
+    { min: 100, max: 100, emoji: '🎉', label: 'Completed' },
+  ];
+
+  let selectedGoal = 0;
+
+  function getStage(pct) {
+    return STAGES.find(s => pct >= s.min && pct <= s.max) || STAGES[0];
+  }
+
+  function selectGoal(idx) {
+    selectedGoal = idx;
+    document.querySelectorAll('.sim-goal-item').forEach((el, i) => {
+      el.classList.toggle('selected', i === idx);
+    });
+    const g = GOALS[idx];
+    document.getElementById('phone-goal-name').textContent = g.name;
+    document.getElementById('phone-cycle-title').textContent = 'May 2026 Cycle';
+    document.getElementById('phone-cycle-goal').textContent = g.name;
+    document.getElementById('sim-amount').value = '';
+    updatePlantDisplay(idx);
+  }
+
+  function updatePlantDisplay(idx) {
+    const g = GOALS[idx];
+    const pct = Math.min(100, Math.round((g.saved / g.target) * 100));
+    const stage = getStage(pct);
+    document.getElementById('plant-emoji').textContent = stage.emoji;
+    document.getElementById('plant-stage').textContent = stage.label;
+    document.getElementById('plant-pct').textContent = pct + '%';
+    document.getElementById('plant-bar').style.width = pct + '%';
+    document.getElementById('plant-goal-label').textContent = pct + '% Planted';
+    // Side bar
+    document.getElementById('bar-' + idx).style.width = pct + '%';
+    document.getElementById('label-saved-' + idx).textContent = '₱' + g.saved.toLocaleString() + ' saved';
+  }
+
+  function logSaving() {
+    const amt = parseInt(document.getElementById('sim-amount').value) || 0;
+    if (amt <= 0) { alert('Enter an amount to log.'); return; }
+    const g = GOALS[selectedGoal];
+    g.saved = Math.min(g.target, g.saved + amt);
+    document.getElementById('sim-amount').value = '';
+    // Animate
+    const emoji = document.getElementById('plant-emoji');
+    emoji.style.transform = 'scale(1.3)';
+    setTimeout(() => { emoji.style.transform = 'scale(1)'; emoji.style.transition = 'transform 0.4s ease'; }, 300);
+    updatePlantDisplay(selectedGoal);
+  }
+
+  // ── PLANNER ──
+  function updateRate() {
+    const v = document.getElementById('p-rate').value;
+    document.getElementById('p-rate-label').textContent = v + '%';
+  }
+
+  function fmt(n) { return '₱' + Math.round(n).toLocaleString(); }
+
+  function calcPlan() {
+    const income   = parseFloat(document.getElementById('p-income').value)   || 0;
+    const rate     = parseFloat(document.getElementById('p-rate').value)     || 15;
+    const expenses = parseFloat(document.getElementById('p-expenses').value) || 0;
+
+    if (income <= 0) {
+      ['r-income','r-savings','r-spend','r-bills'].forEach(id => { document.getElementById(id).textContent = '₱—'; });
+      document.getElementById('r-highlight').style.display = 'none';
+      return;
+    }
+
+    const halfIncome  = income / 2;
+    const monthlySav  = income * (rate / 100);
+    const halfSav     = monthlySav / 2;
+    const halfExp     = expenses / 2;
+    const spendLeft   = halfIncome - halfSav - halfExp;
+
+    document.getElementById('r-income').textContent  = fmt(halfIncome);
+    document.getElementById('r-savings').textContent = fmt(halfSav);
+    document.getElementById('r-spend').textContent   = fmt(halfIncome - halfSav);
+    document.getElementById('r-bills').textContent   = fmt(halfExp);
+
+    const hl = document.getElementById('r-highlight');
+    hl.style.display = 'block';
+    if (spendLeft >= 0) {
+      hl.className = 'result-highlight';
+      document.getElementById('r-highlight-title').textContent = '✓ Highly Sustainable Plan!';
+      document.getElementById('r-highlight-body').textContent =
+        `After allocating savings + essential bill splits, you still have ${fmt(spendLeft)} per kinsena for discretionary meals/coffee! Keep your plant stable.`;
+    } else {
+      hl.className = 'result-highlight warning';
+      document.getElementById('r-highlight-title').textContent = '⚠ Expenses exceed income';
+      document.getElementById('r-highlight-body').textContent =
+        `Your fixed expenses alone exceed your half-month income by ${fmt(Math.abs(spendLeft))}. Consider reducing expenses or adjusting your savings rate.`;
+    }
+  }
+
+  // ── WAITLIST ──
+  function joinWaitlist() {
+    const name = document.getElementById('waitlist-name').value.trim();
+    if (!name) { alert('Please enter your name or number.'); return; }
+    // Replace this with your actual form submission (Google Forms, etc.)
+    document.getElementById('waitlist-msg').textContent = `Thank you, ${name}! We'll notify you when Seed Trail launches. 🌱`;
+    document.getElementById('waitlist-name').value = '';
+    document.getElementById('waitlist-name').placeholder = 'You\'re on the list!';
+    document.getElementById('waitlist-name').disabled = true;
+  }
+
+  // Init
+  updatePlantDisplay(0);
+</script>
+</body>
+</html>
