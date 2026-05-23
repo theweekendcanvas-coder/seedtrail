@@ -457,6 +457,20 @@
   </div>
 </div>
 
+<!-- ── EARLY WAITLIST ── -->
+<section style="background: var(--dark); padding: 56px 40px; text-align: center;">
+  <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--amber); margin-bottom:12px;">COMING TO GOOGLE PLAY</p>
+  <h2 style="font-size:clamp(24px,3vw,36px); font-weight:900; color:#fff; margin-bottom:10px;">Be first to know when Seed Trail launches.</h2>
+  <p style="font-size:15px; color:#A8A29E; margin-bottom:28px;">Drop your name and number — we'll message you the day it goes live.</p>
+  <div style="display:flex; flex-direction:column; gap:10px; max-width:400px; margin:0 auto;">
+    <input class="waitlist-input" type="text" id="early-name" placeholder="Your full name">
+    <input class="waitlist-input" type="tel" id="early-number" placeholder="Mobile number (e.g. 09171234567)">
+    <input class="waitlist-input" type="text" id="early-facebook" placeholder="Facebook name or profile link (optional)">
+    <button class="waitlist-submit" id="early-btn" onclick="joinEarly()">Notify Me on Launch Day 🌱</button>
+  </div>
+  <p style="font-size:12px; color:#57534E; margin-top:14px;" id="early-msg">Free to start · ₱199 one-time Pro · No subscriptions</p>
+</section>
+
 <!-- ── PHILOSOPHY ── -->
 <section class="philosophy" id="philosophy">
   <div class="section-inner">
@@ -817,6 +831,25 @@
 
     document.getElementById('waitlist-msg').textContent = `Thank you, ${name}! We'll notify you when Seed Trail launches. 🌱`;
     ['waitlist-name','waitlist-number','waitlist-facebook'].forEach(id => {
+      document.getElementById(id).value = '';
+      document.getElementById(id).disabled = true;
+    });
+    btn.textContent = "You're on the list! 🌱";
+  }
+
+  async function joinEarly() {
+    const name     = document.getElementById('early-name').value.trim();
+    const number   = document.getElementById('early-number').value.trim();
+    const facebook = document.getElementById('early-facebook').value.trim();
+    if (!name)   { alert('Please enter your name.'); return; }
+    if (!number) { alert('Please enter your mobile number.'); return; }
+    const btn = document.getElementById('early-btn');
+    btn.disabled = true; btn.textContent = 'Saving…';
+    try {
+      await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ name, number, facebook }) });
+    } catch (_) {}
+    document.getElementById('early-msg').textContent = `Got it, ${name}! We'll message you on launch day. 🌱`;
+    ['early-name','early-number','early-facebook'].forEach(id => {
       document.getElementById(id).value = '';
       document.getElementById(id).disabled = true;
     });
