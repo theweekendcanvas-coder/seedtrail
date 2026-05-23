@@ -348,18 +348,18 @@
     }
     .waitlist-cta h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; color: #fff; margin-bottom: 16px; }
     .waitlist-cta p { font-size: 16px; color: #A8A29E; max-width: 500px; margin: 0 auto 40px; line-height: 1.7; }
-    .waitlist-form { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto; }
+    .waitlist-form { display: flex; flex-direction: column; gap: 12px; max-width: 440px; margin: 0 auto; }
     .waitlist-input {
-      flex: 1; min-width: 220px; padding: 14px 20px; border-radius: 12px;
+      width: 100%; padding: 14px 20px; border-radius: 12px;
       border: 1.5px solid #3D3830; background: #2C2416; color: #fff;
       font-size: 15px; font-family: inherit;
     }
     .waitlist-input::placeholder { color: #57534E; }
     .waitlist-input:focus { outline: none; border-color: var(--amber); }
     .waitlist-submit {
-      padding: 14px 28px; border-radius: 12px; border: none;
+      width: 100%; padding: 14px 28px; border-radius: 12px; border: none;
       background: var(--terra); color: #fff; font-size: 15px; font-weight: 700;
-      cursor: pointer; font-family: inherit; transition: opacity 0.2s; white-space: nowrap;
+      cursor: pointer; font-family: inherit; transition: opacity 0.2s;
     }
     .waitlist-submit:hover { opacity: 0.88; }
     .waitlist-note { font-size: 12px; color: #57534E; margin-top: 16px; }
@@ -657,7 +657,9 @@
   <h2>Get Seed Trail — Coming to Google Play</h2>
   <p>Ready to make your savings visible? Join the waitlist and be the first to know when Seed Trail launches on Google Play Philippines.</p>
   <div class="waitlist-form">
-    <input class="waitlist-input" type="text" id="waitlist-name" placeholder="Your name or number">
+    <input class="waitlist-input" type="text" id="waitlist-name" placeholder="Your full name">
+    <input class="waitlist-input" type="tel" id="waitlist-number" placeholder="Mobile number (e.g. 09171234567)">
+    <input class="waitlist-input" type="text" id="waitlist-facebook" placeholder="Facebook name or profile link (optional)">
     <button class="waitlist-submit" onclick="joinWaitlist()">Join Waitlist 🌱</button>
   </div>
   <div class="waitlist-note" id="waitlist-msg">Free to start · ₱199 one-time Pro · No subscriptions ever</div>
@@ -790,14 +792,35 @@
   }
 
   // ── WAITLIST ──
-  function joinWaitlist() {
-    const name = document.getElementById('waitlist-name').value.trim();
-    if (!name) { alert('Please enter your name or number.'); return; }
-    // Replace this with your actual form submission (Google Forms, etc.)
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyIW-6CRbfgdGxccj0LPfuKdgUKHleAqVU4xCuJehVSs3eeSdIkY3IwM-6MT0XAV_Z5dg/exec';
+
+  async function joinWaitlist() {
+    const name     = document.getElementById('waitlist-name').value.trim();
+    const number   = document.getElementById('waitlist-number').value.trim();
+    const facebook = document.getElementById('waitlist-facebook').value.trim();
+
+    if (!name)   { alert('Please enter your name.'); return; }
+    if (!number) { alert('Please enter your mobile number.'); return; }
+
+    const btn = document.querySelector('.waitlist-submit');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ name, number, facebook }),
+      });
+    } catch (_) {
+      // Apps Script returns a CORS error on redirect — submission still saves to the sheet
+    }
+
     document.getElementById('waitlist-msg').textContent = `Thank you, ${name}! We'll notify you when Seed Trail launches. 🌱`;
-    document.getElementById('waitlist-name').value = '';
-    document.getElementById('waitlist-name').placeholder = 'You\'re on the list!';
-    document.getElementById('waitlist-name').disabled = true;
+    ['waitlist-name','waitlist-number','waitlist-facebook'].forEach(id => {
+      document.getElementById(id).value = '';
+      document.getElementById(id).disabled = true;
+    });
+    btn.textContent = "You're on the list! 🌱";
   }
 
   // Init
