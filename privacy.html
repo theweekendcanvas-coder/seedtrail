@@ -1,0 +1,263 @@
+<title>Privacy Policy â€” Seed Trail</title>
+<style>
+  :root {
+    --bg:        #FFFBF0;
+    --bg-subtle: #FEF3C7;
+    --surface:   #FEF9EE;
+    --border:    #E7E0D8;
+    --text:      #1C1917;
+    --muted:     #78716C;
+    --accent:    #B45309;
+    --accent-dk: #92400E;
+    --body-size: 15px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #1A1511;
+      --bg-subtle: #2A1F0E;
+      --surface:   #221A0F;
+      --border:    #3A2E22;
+      --text:      #F5F0E8;
+      --muted:     #A8997A;
+      --accent:    #D97706;
+      --accent-dk: #F59E0B;
+    }
+  }
+
+  :root[data-theme="light"] {
+    --bg:        #FFFBF0;
+    --bg-subtle: #FEF3C7;
+    --surface:   #FEF9EE;
+    --border:    #E7E0D8;
+    --text:      #1C1917;
+    --muted:     #78716C;
+    --accent:    #B45309;
+    --accent-dk: #92400E;
+  }
+
+  :root[data-theme="dark"] {
+    --bg:        #1A1511;
+    --bg-subtle: #2A1F0E;
+    --surface:   #221A0F;
+    --border:    #3A2E22;
+    --text:      #F5F0E8;
+    --muted:     #A8997A;
+    --accent:    #D97706;
+    --accent-dk: #F59E0B;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Roboto, sans-serif;
+    font-size: var(--body-size);
+    line-height: 1.75;
+    padding: 48px 20px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* â”€â”€ Back link â”€â”€ */
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    margin-bottom: 40px;
+  }
+  .back:hover { text-decoration: underline; }
+  .back::before { content: 'â†'; }
+
+  /* â”€â”€ Header â”€â”€ */
+  .header { margin-bottom: 36px; }
+
+  .app-mark {
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin-bottom: 6px;
+  }
+
+  .tagline {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* â”€â”€ Lead callout â”€â”€ */
+  .callout {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin-bottom: 40px;
+  }
+
+  .callout p {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent-dk);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* â”€â”€ Sections â”€â”€ */
+  .section { margin-bottom: 32px; }
+
+  h2 {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  p { color: var(--text); margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 700; color: var(--text); }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  li {
+    padding-left: 18px;
+    position: relative;
+    color: var(--text);
+  }
+
+  li::before {
+    content: 'Â·';
+    position: absolute;
+    left: 4px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* â”€â”€ Footer â”€â”€ */
+  .footer {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .footer-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 4px 12px;
+    white-space: nowrap;
+  }
+</style>
+
+<div class="wrap">
+  <a href="/seedtrail/" class="back">Back to Seed Trail</a>
+
+  <header class="header">
+    <span class="app-mark">ðŸŒ±</span>
+    <h1>Privacy Policy</h1>
+    <p class="tagline">Seed Trail &nbsp;Â·&nbsp; com.seedtrail.app</p>
+  </header>
+
+  <div class="callout">
+    <p>Seed Trail is designed to work entirely on your device. Your financial data never leaves your phone â€” there is no account system, no cloud sync, and no server storing your information.</p>
+  </div>
+
+  <div class="section">
+    <h2>What We Collect</h2>
+    <p>Seed Trail stores all of your data locally on your device using on-device storage. This includes your savings goals, monthly income entries, savings records, and app settings.</p>
+    <p><strong>We do not collect, transmit, or store your personal or financial data on any server of ours.</strong></p>
+  </div>
+
+  <div class="section">
+    <h2>In-App Purchases</h2>
+    <p>Seed Trail offers an optional one-time Pro upgrade processed through Google Play Billing. When you make a purchase:</p>
+    <ul>
+      <li>Payment is handled entirely by Google Play â€” we never see or store your payment information.</li>
+      <li>We use RevenueCat to verify your purchase status. RevenueCat receives a purchase token from Google Play solely to confirm your entitlement. No financial data is shared beyond what Google Play provides for verification.</li>
+      <li>RevenueCat's privacy policy: <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Notifications</h2>
+    <p>If you enable reminders, Seed Trail schedules local push notifications on your device. These are generated and delivered entirely on-device â€” no notification server is involved and no data is sent off your phone to trigger them.</p>
+  </div>
+
+  <div class="section">
+    <h2>Third-Party Services</h2>
+    <p>Seed Trail does not use advertising networks, analytics SDKs, crash reporting tools, or any other third-party tracking services. The only external service used is RevenueCat, solely for purchase verification as described above.</p>
+  </div>
+
+  <div class="section">
+    <h2>Data Deletion</h2>
+    <p>You can permanently delete all your data at any time from within the app: go to <strong>Settings â†’ Clear all data</strong>. This removes all goals, savings entries, and settings stored on your device. This action cannot be undone.</p>
+  </div>
+
+  <div class="section">
+    <h2>Children's Privacy</h2>
+    <p>Seed Trail is intended for users 18 years of age and older. We do not knowingly collect any data from children.</p>
+  </div>
+
+  <div class="section">
+    <h2>Contact</h2>
+    <p>If you have questions about this privacy policy, you can reach us at:<br>
+    <a href="mailto:theweekendcanvas@gmail.com">theweekendcanvas@gmail.com</a></p>
+  </div>
+
+  <div class="section">
+    <h2>Changes to This Policy</h2>
+    <p>If this privacy policy changes, this page will be updated to reflect the current version. Continued use of Seed Trail after an update means you accept the revised policy.</p>
+  </div>
+
+  <footer class="footer">
+    <p class="footer-text">Last updated: July 8, 2026</p>
+    <span class="footer-badge">Seed Trail v1.0</span>
+  </footer>
+</div>
